@@ -16,7 +16,6 @@ function Login() {
     event.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, emailAddress, password);
-      // await updateUserStatus(auth.currentUser.uid, true);
       navigate(ROUTES.DASHBOARD);
     } catch (error) {
       if (error) setLoading(false);
@@ -40,44 +39,20 @@ function Login() {
       }
     }
   };
-  // const handleResetPassword = async (event) => {
-  //   event.preventDefault();
-  //   if (emailAddress === "") {
-  //     setError("Enter your Email Address first");
-  //   } else {
-  //     try {
-  //       await sendPasswordResetEmail(auth, emailAddress);
-  //       setError(
-  //         "Password Reset Link sent successfully. Please check your email. If not found in Inbox, check your Spam folder"
-  //       );
-  //     } catch (error) {
-  //       if(error.code === "auth/invalid-email"){
-  //         setError("Enter a valid Email Address.")
-  //       }else if(error.code === "auth/user-not-found"){
-  //         setError("User Not Found. Please Sign Up.")
-  //       }
-  //        else{
-  //         setError(error.message);
-  //       }
-  //     }
-  //   }
-  //};
+
   useEffect(() => {
-    document.title = "Login - Instagram 2.0";
+    document.title = "Login - Trendle";
   }, []);
+
   return (
     <div className="grid">
       <div>
-        <div className="top-grid -mb-36 p-5 ">
-          <h1 className="-mx-16 flex w-full justify-center">
-            <img
-              src="/images/logo.png"
-              alt="Instagram Logo"
-              className="mb-6 mt-4 w-48 "
-            />
+        <div className="top-grid -mb-36 p-5">
+          <h1 className="-mx-16 mb-6 mt-4 flex w-full justify-center text-3xl font-bold">
+            Trendle
           </h1>
-          <h1 className="flex justify-center text-center ">
-            <p className="mb-8 text-[22px] font-semibold text-gray-400 ">
+          <h1 className="flex justify-center text-center">
+            <p className="mb-8 text-[22px] font-semibold text-gray-400">
               Login To Your Account.
             </p>
           </h1>
@@ -115,17 +90,14 @@ function Login() {
             >
               {loading ? "Logging In" : "Log In"}
             </button>
-            <h1 className="flex justify-center text-center ">
-              <button
-                // onClick={handleResetPassword}
-                className="my-3 font-semibold text-blue-900 decoration-inherit"
-              >
+            <h1 className="flex justify-center text-center">
+              <button className="my-3 font-semibold text-blue-900 decoration-inherit">
                 Forgot Password?
               </button>
             </h1>
           </form>
         </div>
-        <div className=" bottom-grid mt-40">
+        <div className="bottom-grid mt-40">
           <p className="mr-2 font-semibold">Don't Have An Account?</p>
           <Link to={ROUTES.SIGN_UP} className="font-bold text-blue-500">
             Sign Up

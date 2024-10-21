@@ -16,6 +16,7 @@ import { firebaseApp } from "../lib/firebase";
 import * as ROUTES from "../constants/routes";
 
 const db = getFirestore(firebaseApp);
+
 function SignUp() {
   const navigate = useNavigate();
   const [emailAddress, setEmailAddress] = useState("");
@@ -37,7 +38,7 @@ function SignUp() {
     event.preventDefault();
     const usernameExists = await doesUsernameExist(username);
     if (password !== confirmPassword) {
-      setError("Passwords Donot Match.");
+      setError("Passwords Do Not Match.");
       setPassword("");
       setConfirmPassword("");
       setLoading(false);
@@ -46,7 +47,7 @@ function SignUp() {
       setFullName("");
       setLoading(false);
     } else if (username.length > 10) {
-      setError("Username can be maximum of 10 characters.");
+      setError("Username can be a maximum of 10 characters.");
       setUsername("");
       setLoading(false);
     } else if (!usernameExists.length) {
@@ -84,19 +85,6 @@ function SignUp() {
           setEmailAddress("");
           setPassword("");
           setConfirmPassword("");
-        } else if (error.code === "auth/invalid-display-name") {
-          setError(
-            "Invalid Username. Only alphanumeric characters and '_' and '.' are allowed."
-          );
-          setUsername("");
-        } else if (error.code === "auth/invalid-password") {
-          setError("Invalid Password. Must be atleast 6 characters.");
-          setPassword("");
-          setConfirmPassword("");
-        } else if (error.code === "auth/weak-password") {
-          setError("Choose a stronger password.");
-          setPassword("");
-          setConfirmPassword("");
         } else {
           setError(error.code);
           setFullName("");
@@ -109,26 +97,23 @@ function SignUp() {
     } else {
       setUsername("");
       setLoading(false);
-      setError("Username already exists. Please choose another one");
+      setError("Username already exists. Please choose another one.");
     }
   };
+
   useEffect(() => {
-    document.title = "Sign Up - Instagram 2.0";
+    document.title = "Sign Up - Trendle";
   }, []);
 
   return (
     <div className="grid">
       <div>
         <div className="top-grid my-3 p-[24px]">
-          <h1 className="-mx-16 flex w-full justify-center ">
-            <img
-              src="/images/logo.png"
-              alt="Instagram Logo"
-              className="mb-4 mt-4 w-48 "
-            />
+          <h1 className="-mx-16 mb-4 mt-4 flex w-full justify-center text-3xl font-bold">
+            Trendle
           </h1>
-          <h1 className="flex justify-center text-center ">
-            <p className="mb-8 text-[22px] font-semibold text-gray-400 ">
+          <h1 className="flex justify-center text-center">
+            <p className="mb-8 text-[22px] font-semibold text-gray-400">
               Sign up to see photos and videos from your friends.
             </p>
           </h1>
@@ -152,7 +137,7 @@ function SignUp() {
               required
               aria-label="Enter Your Username"
               placeholder="Username"
-              className="input "
+              className="input"
               onChange={({ target }) => {
                 setUsername(target.value), setError();
               }}
@@ -164,7 +149,7 @@ function SignUp() {
               required
               aria-label="Enter Your Email Address"
               placeholder="Email Address"
-              className="input "
+              className="input"
               onChange={({ target }) => {
                 setEmailAddress(target.value), setError();
               }}
@@ -196,16 +181,16 @@ function SignUp() {
             />
             <button
               className={`submit ${isInvalid && " bg-opacity-40"}`}
-              disabled={isInvalid === true}
+              disabled={isInvalid}
               type="submit"
               onClick={() => setLoading(true)}
             >
-              {loading ? "Creating Your Account" : "Sign Up"}
+              {loading ? "Signing Up" : "Sign Up"}
             </button>
           </form>
         </div>
-        <div className=" bottom-grid">
-          <p className="mr-2 font-semibold">Already have An Account?</p>
+        <div className="bottom-grid">
+          <p className="mr-2 font-semibold">Already Have An Account?</p>
           <Link to={ROUTES.LOGIN} className="font-bold text-blue-500">
             Log In
           </Link>
